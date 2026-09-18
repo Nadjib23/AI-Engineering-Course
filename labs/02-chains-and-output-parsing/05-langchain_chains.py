@@ -29,10 +29,14 @@ fr_prompt = ChatPromptTemplate.from_template(
 en_prompt = ChatPromptTemplate.from_template(
     "You are Thabet, TEK-UP's AI Assistant. Answer in English, concisely: {question}"
 )
+trk_prompt = ChatPromptTemplate.from_template(
+    "You are Thabet, TEK-UP's AI Assistant. Answer in Turkish, concisely: {question}"
+)
 
 parallel_chain = RunnableParallel(
     french=fr_prompt | llm | StrOutputParser(),
     english=en_prompt | llm | StrOutputParser(),
+    turkish=trk_prompt | llm | StrOutputParser(),
 )
 
 
@@ -105,9 +109,11 @@ if __name__ == "__main__":
 
         elif user_input.lower().startswith("/parallel "):
             question = user_input[len("/parallel "):].strip()
+
             result = parallel_chain.invoke({"question": question})
             print("\n[French] ", result["french"])
             print("[English]", result["english"])
+            print("[Turkish]", result["turkish"])
 
         elif user_input.lower().startswith("/clean "):
             question = user_input[len("/clean "):]

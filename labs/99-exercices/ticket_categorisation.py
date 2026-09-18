@@ -1,6 +1,5 @@
 import pandas as pd
 import os
-from groq import Groq
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
@@ -25,7 +24,7 @@ class TicketDescription(BaseModel):
 ticket_description_llm = llm.with_structured_output(TicketDescription)
 
 prompt = ChatPromptTemplate.from_template(
-    "You are a ticket analysis assistant, Analyze the following {description}"
+    "You are a ticket analysis assistant, Analyze the following ticket {description}"
 )
 
 chain = prompt | ticket_description_llm
@@ -33,7 +32,7 @@ chain = prompt | ticket_description_llm
 
 while(True):
 
-    user_input = int(input('Input an ID : '))
+    user_input = int(input('\nInput an ID : '))
 
     ticket_description = tickets.loc[user_input]['Ticket Description']
 
