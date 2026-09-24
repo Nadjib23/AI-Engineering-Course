@@ -41,5 +41,4 @@ while(True):
     response = chain.invoke({
         'description' : ticket_description
     })
-
     print('Assistant answer : ', response)

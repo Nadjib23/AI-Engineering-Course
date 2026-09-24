@@ -10,6 +10,7 @@ load_dotenv()
 llm = ChatGroq(
     groq_api_key=os.getenv("GROQ_API_KEY"),
     model_name="openai/gpt-oss-20b",
+    temperature=0.9
 )
 
 # so far every chain has been a straight line: prompt | llm. LCEL can do
