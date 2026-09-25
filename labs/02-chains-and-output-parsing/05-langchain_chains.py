@@ -35,7 +35,7 @@ trk_prompt = ChatPromptTemplate.from_template(
 )
 
 parallel_chain = RunnableParallel(
-    french=fr_prompt | llm | StrOutputParser(),
+    french = fr_prompt | llm | StrOutputParser(),
     english=en_prompt | llm | StrOutputParser(),
     turkish=trk_prompt | llm | StrOutputParser(),
 )

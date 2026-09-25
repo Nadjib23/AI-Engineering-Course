@@ -38,7 +38,7 @@ while True:
         "question": query,
         "language": "French",
         "style": "concise",
-        "type_of_person": "A 5 years old child"
+        "type_of_person": "A mechanical engineer"
     })
 
     print("AI:", response.content)

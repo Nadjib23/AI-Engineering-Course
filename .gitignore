@@ -23,6 +23,7 @@ Thumbs.db
 datasets/*.csv
 datasets/*.json
 datasets/raw/
+labs/04-rag/data/
 
 # Model artifacts (fine-tuning/quantization labs will generate these)
 *.gguf

@@ -34,6 +34,19 @@ prompt = ChatPromptTemplate.from_template(
     '''
 )
 
+rewrite_prompt = ChatPromptTemplate.from_template("""
+    Rewrite the user's question into a concise search query.
+
+    Do not answer the question.
+    Keep the important keywords.
+
+    Question:
+    {question}
+
+    Search query:
+""")
+
+
 # 1. Load the same embedding model
 
 embeddings = HuggingFaceEmbeddings(
@@ -58,12 +71,15 @@ def format_docs(documents):
     return "\n\n".join(doc.page_content for doc in documents)
 
 
+rewrite_chain = rewrite_prompt | llm | StrOutputParser()
+
 rag_chain = (
     {
-        "context" : retriever | format_docs,
+        "context" : rewrite_chain| retriever | format_docs,
         "question" : RunnablePassthrough()
     }
     | prompt |llm |StrOutputParser()
+
 )
 
 question = input('Ask something : ')

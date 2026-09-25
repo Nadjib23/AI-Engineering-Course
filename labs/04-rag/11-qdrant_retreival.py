@@ -11,17 +11,16 @@ load_dotenv()
 QDRANT_URL = "http://localhost:6333"
 COLLECTION_NAME = "my_first_rag"
 
-
 llm = ChatGroq(
     groq_api_key=os.getenv("GROQ_API_KEY"),
-    model_name="openai/gpt-oss-20b",
+    model_name="openai/gpt-oss-120b",
 )
 
 prompt = ChatPromptTemplate.from_template(
     '''
     You are a helpful assistant
-    yo ualways answer the question given the context
-    if you dn't have an answer just say i don't know
+    you always answer the questions given the context
+    if you don't have an answer just say i don't know
 
     question : 
     {question}
@@ -49,11 +48,12 @@ vector_store = QdrantVectorStore.from_existing_collection(
 question = input("Question: ")
 
 # 4. Retrieve the most relevant chunks
-
 documents = vector_store.similarity_search(
     question,
     k=5,
 )
+
+context = "\n\n".join([document.page_content for document in documents])
 
 context = "\n".join([ doc.page_content for doc in documents])
 
@@ -66,18 +66,23 @@ answer = chain.invoke({
 print('AI : ', answer)
 
 
-
-
-# # 5. Display the results
+# # # 5. Display the results
 
 # for i, document in enumerate(documents, start=1):
 
 #     print(f"\n--- Result {i} ---")
-
-#     print(document)
-
 #     print("Page:", document.metadata.get("page"))
-
 #     print(document.page_content)
 
-#     break
+
+
+
+
+
+
+
+
+
+
+
+
