@@ -1,0 +1,17 @@
+# core
+python-dotenv
+groq
+
+# langchain
+langchain
+langchain-core
+langchain-groq
+langchain-community      
+pydantic
+
+# RAG / vector store
+langchain-qdrant
+qdrant-client
+langchain-huggingface
+sentence-transformers   
+pypdf                    
