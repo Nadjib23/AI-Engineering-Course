@@ -1,7 +1,5 @@
 import os
 
-from qdrant_client.models import Filter, FieldCondition, MatchValue, MatchText
-
 os.environ["HF_HUB_OFFLINE"] = "1"
 
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -10,11 +8,13 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_groq import ChatGroq
+from pydantic import BaseModel, Field
+
 from dotenv import load_dotenv
 load_dotenv()
 
 QDRANT_URL = "http://localhost:6333"
-COLLECTION_NAME = "invoices"
+COLLECTION_NAME = "my_first_rag"
 
 
 llm = ChatGroq(
@@ -22,11 +22,17 @@ llm = ChatGroq(
     model_name="openai/gpt-oss-20b",
 )
 
+class RagAnswer(BaseModel):
+    answer: str = Field(description="The answer to the question, must be a string")
+    sources: list[str] = Field(description="The sources of the answer, must be a list of strings")
+
+source_llm = llm.with_structured_output(RagAnswer)
+
 prompt = ChatPromptTemplate.from_template(
     '''
     You are a helpful assistant
-    yo ualways answer the question given the context
-    if you don't have an answer just say i don't know
+    you always answer the question given the context and provide the sources {source}
+    if you dn't have an answer just say i don't know
 
     question : 
     {question}
@@ -52,33 +58,25 @@ vector_store = QdrantVectorStore.from_existing_collection(
 
 retriever = vector_store.as_retriever(
     search_kwargs = {
-        "k" : 5,
-        # 'filter' : Filter(
-        #     must=[  FieldCondition(
-        #         key="metadata.invoice_nbr",
-        #         match=MatchText(text="36258")
-        #     )]
-        # )
+        "k" : 5
     }
 )
 
 def format_docs(documents):
     return "\n\n".join(doc.page_content for doc in documents)
-
+def getSources(documents):
+    return "\n\n".join(doc.metadata.get("source", "Unknown") for doc in documents)
 
 rag_chain = (
     {
         "context" : retriever | format_docs,
+        "source" : retriever | getSources,
         "question" : RunnablePassthrough()
     }
-    | prompt |llm |StrOutputParser()
+    | prompt | source_llm
 )
 
-while True:
-    question = input('Ask something : ')
-    if question.lower() in ['exit', 'quit']:
-        print("Exiting the program.")
-        break
-    answer = rag_chain.invoke(question)
+question = input('Ask something : ')
+answer = rag_chain.invoke(question)
 
-    print('AI : ', answer)
+print('AI : ', answer)
