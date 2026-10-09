@@ -73,6 +73,7 @@ retriever = vector_store.as_retriever(
             must=[
                 FieldCondition(
                     key="metadata.source",
+                    #match=MatchValue(value="data\\2602.10481v1.pdf")
                     match=MatchValue(value="data\\2602.10481v1.pdf")
                     # 2602.10481v1
                 )
@@ -104,3 +105,288 @@ while True:
     answer = rag_chain.invoke(question)
 
     print('AI : ', answer)
+
+
+# ============================================================
+# QDRANT METADATA FILTERING
+# ============================================================
+#
+# Metadata is stored in the Document metadata and can be used
+# to filter the vector search before returning results.
+#
+# Example metadata:
+#
+# {
+#     "source": "data/paper.pdf",
+#     "file_hash": "abc123...",
+#     "page": 5,
+#     "year": 2024,
+#     "category": "machine-learning",
+#     "language": "en"
+# }
+#
+#
+# 1. EXACT MATCH
+# ------------------------------------------------------------
+# MatchValue: field == value
+#
+# FieldCondition(
+#     key="metadata.category",
+#     match=MatchValue(value="machine-learning")
+# )
+#
+#
+# 2. MATCH ANY VALUE
+# ------------------------------------------------------------
+# MatchAny: field IN [value1, value2, ...]
+#
+# FieldCondition(
+#     key="metadata.category",
+#     match=MatchAny(
+#         any=["machine-learning", "deep-learning"]
+#     )
+# )
+#
+#
+# 3. TEXT MATCH
+# ------------------------------------------------------------
+# MatchText: text matching on a string field
+#
+# FieldCondition(
+#     key="metadata.title",
+#     match=MatchText(text="machine learning")
+# )
+#
+#
+# 4. NUMERIC RANGE
+# ------------------------------------------------------------
+# Range supports:
+#
+#     gt  -> >
+#     gte -> >=
+#     lt  -> <
+#     lte -> <=
+#
+# Example:
+#
+# FieldCondition(
+#     key="metadata.year",
+#     range=Range(gte=2020, lte=2025)
+# )
+#
+# Equivalent:
+#     2020 <= year <= 2025
+#
+#
+# 5. AND — must
+# ------------------------------------------------------------
+# ALL conditions must be true.
+#
+# Filter(
+#     must=[
+#         FieldCondition(
+#             key="metadata.year",
+#             range=Range(gte=2020)
+#         ),
+#         FieldCondition(
+#             key="metadata.category",
+#             match=MatchValue(value="machine-learning")
+#         )
+#     ]
+# )
+#
+# Equivalent:
+#     year >= 2020 AND category == "machine-learning"
+#
+#
+# 6. OR — should
+# ------------------------------------------------------------
+# At least one condition should match.
+#
+# Filter(
+#     should=[
+#         FieldCondition(
+#             key="metadata.category",
+#             match=MatchValue(value="machine-learning")
+#         ),
+#         FieldCondition(
+#             key="metadata.category",
+#             match=MatchValue(value="deep-learning")
+#         )
+#     ]
+# )
+#
+# Equivalent:
+#     category == "machine-learning"
+#     OR
+#     category == "deep-learning"
+#
+#
+# 7. NOT — must_not
+# ------------------------------------------------------------
+# Exclude documents matching the condition.
+#
+# Filter(
+#     must_not=[
+#         FieldCondition(
+#             key="metadata.language",
+#             match=MatchValue(value="ar")
+#         )
+#     ]
+# )
+#
+# Equivalent:
+#     language != "ar"
+#
+#
+# 8. COMBINE must + should + must_not
+# ------------------------------------------------------------
+#
+# Filter(
+#     must=[
+#         FieldCondition(
+#             key="metadata.year",
+#             range=Range(gte=2020)
+#         )
+#     ],
+#     should=[
+#         FieldCondition(
+#             key="metadata.category",
+#             match=MatchValue(value="machine-learning")
+#         ),
+#         FieldCondition(
+#             key="metadata.category",
+#             match=MatchValue(value="deep-learning")
+#         )
+#     ],
+#     must_not=[
+#         FieldCondition(
+#             key="metadata.language",
+#             match=MatchValue(value="ar")
+#         )
+#     ]
+# )
+#
+# Conceptually:
+#
+#     year >= 2020
+#     AND
+#     (category == "machine-learning"
+#      OR category == "deep-learning")
+#     AND
+#     language != "ar"
+#
+#
+# 9. FILTER BY FILE
+# ------------------------------------------------------------
+#
+# FieldCondition(
+#     key="metadata.source",
+#     match=MatchValue(
+#         value="data\\2602.10481v1.pdf"
+#     )
+# )
+#
+#
+# 10. FILTER BY FILE HASH
+# ------------------------------------------------------------
+# Useful for identifying chunks belonging to the same
+# original file, even if the file name changes.
+#
+# FieldCondition(
+#     key="metadata.file_hash",
+#     match=MatchValue(
+#         value="SHA256_HASH_HERE"
+#     )
+# )
+#
+#
+# 11. FILTER BY PAGE
+# ------------------------------------------------------------
+#
+# FieldCondition(
+#     key="metadata.page",
+#     range=Range(gte=5, lte=10)
+# )
+#
+# Equivalent:
+#     5 <= page <= 10
+#
+#
+# 12. FILTER MULTIPLE FILES
+# ------------------------------------------------------------
+#
+# Filter(
+#     should=[
+#         FieldCondition(
+#             key="metadata.source",
+#             match=MatchValue(value="data\\paper1.pdf")
+#         ),
+#         FieldCondition(
+#             key="metadata.source",
+#             match=MatchValue(value="data\\paper2.pdf")
+#         )
+#     ]
+# )
+#
+# Or use MatchAny:
+#
+# FieldCondition(
+#     key="metadata.source",
+#     match=MatchAny(
+#         any=[
+#             "data\\paper1.pdf",
+#             "data\\paper2.pdf"
+#         ]
+#     )
+# )
+#
+#
+# 13. FILTER + SEMANTIC SEARCH
+# ------------------------------------------------------------
+# The metadata filter restricts the candidates, then the
+# vector similarity search finds the most relevant chunks.
+#
+# retriever = vector_store.as_retriever(
+#     search_kwargs={
+#         "k": 5,
+#         "filter": Filter(
+#             must=[
+#                 FieldCondition(
+#                     key="metadata.category",
+#                     match=MatchValue(
+#                         value="machine-learning"
+#                     )
+#                 )
+#             ]
+#         )
+#     }
+# )
+#
+# Conceptually:
+#
+#     User query
+#          |
+#          v
+#     Metadata filter
+#          |
+#          v
+#     Allowed documents/chunks
+#          |
+#          v
+#     Vector similarity search
+#          |
+#          v
+#     Top-k results
+#
+# ============================================================
+
+## You need to import the following for the metadata filtering to work:
+# from qdrant_client.models import (
+#     Filter,
+#     FieldCondition,
+#     MatchValue,
+#     MatchAny,
+#     MatchText,
+#     Range,
+# )
