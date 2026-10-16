@@ -43,30 +43,41 @@ vector_store = QdrantVectorStore.from_existing_collection(
     collection_name=COLLECTION_NAME,
 )
 
-# 3. Ask a question
-
-question = input("Question: ")
-
-# 4. Retrieve the most relevant chunks
-documents = vector_store.similarity_search(
-    question,
-    k=5,
-)
-
-context = "\n\n".join([document.page_content for document in documents])
-
-context = "\n".join([ doc.page_content for doc in documents])
 
 chain = prompt | llm | StrOutputParser()
 
-answer = chain.invoke({
-    'question' : question,
-    'context' : context
-})
-print('AI : ', answer)
+# 3. Ask a question
+
+while True:
+
+    question = input("Question: ")
+
+    if question.lower() == '/bye':
+        break
+
+    # 4. Retrieve the most relevant chunks
+    documents = vector_store.similarity_search(
+        question,
+        k=10,
+    )
+
+    context = "\n\n".join([document.page_content for document in documents])
+
+    answer = chain.invoke({
+        'question' : question,
+        'context' : context
+    })
+    print('AI : ', answer)
 
 
-# # # 5. Display the results
+# question = input("Question: ")
+
+# documents = vector_store.similarity_search(
+#         question,
+#         k=10,
+#     )
+
+# # 5. Display the results
 
 # for i, document in enumerate(documents, start=1):
 

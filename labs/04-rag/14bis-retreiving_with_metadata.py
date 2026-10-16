@@ -11,7 +11,7 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_groq import ChatGroq
 
-from qdrant_client.models import Filter, FieldCondition, MatchValue
+from qdrant_client.models import Filter, FieldCondition, MatchValue, MatchAny
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -73,9 +73,9 @@ retriever = vector_store.as_retriever(
             must=[
                 FieldCondition(
                     key="metadata.source",
-                    #match=MatchValue(value="data\\2602.10481v1.pdf")
-                    match=MatchValue(value="data\\2602.10481v1.pdf")
-                    # 2602.10481v1
+                    match=MatchAny(
+                        any=["data\\2404.03936v2.pdf", "data\\2602.10481v1.pdf"]
+                        )
                 )
             ]
         )

@@ -15,7 +15,6 @@ COLLECTION_NAME = "my_first_rag"
 
 all_documents = list()
 
-print(os.getcwd())
 
 folder_path = Path("data/")
 
