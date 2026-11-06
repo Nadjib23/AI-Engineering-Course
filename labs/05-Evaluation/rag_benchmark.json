@@ -1,0 +1,194 @@
+[
+  {
+    "query_id": "Q001",
+    "question": "In the Sentinel-2 LULC and NDVI study of Gelephu, Bhutan, what cloud coverage range was accepted when selecting satellite images?",
+    "answer": "0–5% cloud coverage, choosing images from the drier months.",
+    "source": "Utilizing_Sentinel-2_Satellite_Imagery_for_LULC_and_NDVI_Change_Dynamics_for_Gelephu_Bhutan.pdf",
+    "page": 3,
+    "passage": "The selection of satellite images took into account a cloud coverage range of 0–5%, specifically targeting the drier months to minimize cloud interference."
+  },
+  {
+    "query_id": "Q002",
+    "question": "According to the NDVI assessment of Gelephu (Sentinel-2, Random Forest LULC study), how much healthy vegetation was lost between 2016 and 2023?",
+    "answer": "75.11% of healthy vegetation was lost.",
+    "source": "Utilizing_Sentinel-2_Satellite_Imagery_for_LULC_and_NDVI_Change_Dynamics_for_Gelephu_Bhutan.pdf",
+    "page": 1,
+    "passage": "The NDVI assessment shows significant deterioration in vegetation health with a 75.11% loss of healthy vegetation in Gelephu between 2016 and 2023."
+  },
+  {
+    "query_id": "Q003",
+    "question": "In the Deeply Supervised MultiResUNet lung tumor segmentation on the LOTUS dataset, what dice coefficient did the model reach when the wavelet transforms were removed?",
+    "answer": "0.7649, compared with 0.8294 for the model with wavelet transforms.",
+    "source": "LungPaper.pdf",
+    "page": 16,
+    "passage": "To do this, we have pre-processed the images without wavelet transforms and have only kept the neighboring slices along with the original image. This gives us a 3-channel input instead of a 5-channel one (original slice and two neighboring slices), wherewith we then train the Deeply Supervised MultiResUNet. This results in a degraded performance of the (ablated) model on the test set, registering a dice coefficient of 0.7649 as opposed to the original value of 0.8294 (Table 7)."
+  },
+  {
+    "query_id": "Q004",
+    "question": "How many input channels does each instance have in the DWT + MultiResUNet lung tumor segmentation model, and what do they contain?",
+    "answer": "Five channels: the original image, the wavelet transforms and the adjacent slices.",
+    "source": "LungPaper.pdf",
+    "page": 8,
+    "passage": "Also, each input instance contains five different channels, including the original image, wavelet transforms, and adjacent slices."
+  },
+  {
+    "query_id": "Q005",
+    "question": "How many AC and SCC samples are in the PRJNA303190 lung-tissue microbiome dataset used to train the NSCLC subtype classifiers?",
+    "answer": "294 samples: 159 AC and 135 SCC.",
+    "source": "Classi_cation_of_NSCLC_subtypes_using_lung_microbiome_from_resected_tissue_based_on_machine_learning_methods.pdf",
+    "page": 8,
+    "passage": "This dataset includes 294 samples, with 159 AC and 135 SCC."
+  },
+  {
+    "query_id": "Q006",
+    "question": "For the machine-learning classification of NSCLC subtypes from the lung microbiome, how was the raw 16S rRNA sequencing data obtained?",
+    "answer": "From the NCBI database, using the SRA toolkit version 2.9.1.",
+    "source": "Classi_cation_of_NSCLC_subtypes_using_lung_microbiome_from_resected_tissue_based_on_machine_learning_methods.pdf",
+    "page": 8,
+    "passage": "The raw 16S rRNA sequencing data on NSCLC patients was collected from the NCBI database using the sequence read archive (SRA) toolkit (version 2.9.1)."
+  },
+  {
+    "query_id": "Q007",
+    "question": "In Scale-Adaptive Curriculum Learning (SACL) with YOLOv11, what image size, number of epochs and learning rate are used in Stage 1?",
+    "answer": "512 px images, 50 epochs, learning rate 0.003.",
+    "source": "2510.26923v1.pdf",
+    "page": 2,
+    "passage": "Stage 1 (512px): Simple labeled samples + high-quality negative samples, trained for 50 epochs with learning rate η1 = 0.003, classification-focused loss weights (box=2.0, cls=4.0, dfl=0.1), minimal augmentation (3° rotation, 5% translation, 10% scaling)."
+  },
+  {
+    "query_id": "Q008",
+    "question": "Why is the original LUNA25 dataset not directly suitable for lung nodule detection in the SACL study?",
+    "answer": "It was built for malignancy risk evaluation and only has approximate regional annotations, not precise nodule boundaries.",
+    "source": "2510.26923v1.pdf",
+    "page": 2,
+    "passage": "However, the original LUNA25 dataset was specifically designed for malignancy risk evaluation, providing approximate regional annotations rather than precise nodule boundaries, which limits its direct applicability for lung nodule detection tasks."
+  },
+  {
+    "query_id": "Q009",
+    "question": "How was the 1097-image lung CT dataset split for training and evaluating VGG16, ResNet50, InceptionV3 and MobileNetV2?",
+    "answer": "70% training, 20% validation, 10% testing, with stratified sampling.",
+    "source": "AI-Powered_Lung_Cancer_Detection-_Assessing_VGG16_and_CNN_Architectures_for_CT_Scan_Image_Classification.pdf",
+    "page": 6,
+    "passage": "The dataset was divided into training (70%), validation (20%), and testing (10%) subsets using stratified sampling to maintain balanced class distributions."
+  },
+  {
+    "query_id": "Q010",
+    "question": "What early stopping rule was used when training VGG16 and the other CNNs to classify lung CT scans as Normal, Benign or Malignant?",
+    "answer": "Training stopped when validation loss showed no significant improvement for 10 consecutive epochs.",
+    "source": "AI-Powered_Lung_Cancer_Detection-_Assessing_VGG16_and_CNN_Architectures_for_CT_Scan_Image_Classification.pdf",
+    "page": 10,
+    "passage": "Training was monitored using validation loss, and training was halted when no significant improvement was observed over 10 consecutive epochs."
+  },
+  {
+    "query_id": "Q011",
+    "question": "How many images of each class are in the CT-scan dataset used to train the Enhanced CNN for lung cancer classification?",
+    "answer": "338 adenocarcinoma, 187 large cell carcinoma, 260 squamous cell carcinoma and 215 normal images.",
+    "source": "Deep_learning-based_approach_to_diagnose_lung_cancer_using_CT-scan_images.pdf",
+    "page": 1,
+    "passage": "The dataset was divided into four classes, consisting of 338 images of adenocarcinoma, 187 images of large cell carcinoma, 260 images of squamous cell carcinoma, and 215 normal images."
+  },
+  {
+    "query_id": "Q012",
+    "question": "In the Enhanced CNN lung cancer CT study, what does the median filter preprocessing step do?",
+    "answer": "It replaces abnormal pixels with the median of neighboring pixels, removing salt-and-pepper and Gaussian noise.",
+    "source": "Deep_learning-based_approach_to_diagnose_lung_cancer_using_CT-scan_images.pdf",
+    "page": 6,
+    "passage": "The median filter is a noise reduction technique that replaces abnormal pixel values with a median value from surrounding pixels, effectively removing salt-and-pepper and Gaussian noise."
+  },
+  {
+    "query_id": "Q013",
+    "question": "What learning rate and batch size were used to train the CapsNet in the YOLOv11 + CapsNet hybrid lung nodule detection model?",
+    "answer": "Learning rate 0.0005, batch size 16.",
+    "source": "1-s2.0-S1877050925029461-main.pdf",
+    "page": 4,
+    "passage": "The CapsNet is trained using a learning rate of 0.0005 and a batch size of 16."
+  },
+  {
+    "query_id": "Q014",
+    "question": "How many epochs did the Cropped Image CapsNet train for in the YOLOv11 + CapsNet lung nodule pipeline, and what validation accuracy did it reach?",
+    "answer": "29 epochs (20 h), validation accuracy 95.45%.",
+    "source": "1-s2.0-S1877050925029461-main.pdf",
+    "page": 5,
+    "passage": "The Cropped Image CapsNet, on the other hand, only trained for 29 epochs (20 h total training time) until early stopping was triggered, with a validation accuracy of 95.45% for the best model."
+  },
+  {
+    "query_id": "Q015",
+    "question": "In the policy algebra built on authenticated prompts and authenticated context, what does Theorem 4 prevent?",
+    "answer": "Tool chaining attacks: combining benign operations cannot achieve a forbidden outcome.",
+    "source": "2602.10481v1.pdf",
+    "page": 6,
+    "passage": "These theorems provide formal guarantees: Theorem 1 prevents privilege expansion during derivation; Theorem 2 ensures root denials are absolute and cannot be bypassed by chaining; Theorem 3 bounds computational complexity preventing resource exhaustion; Theorem 4 prevents tool chaining attacks where combining benign operations cannot achieve forbidden outcomes."
+  },
+  {
+    "query_id": "Q016",
+    "question": "Which idea from fault-tolerant systems inspires the authenticated prompts approach to LLM security?",
+    "answer": "Fail-stop processors, which wrap probabilistic hardware with deterministic checkers.",
+    "source": "2602.10481v1.pdf",
+    "page": 2,
+    "passage": "Borrowing from a seminal idea in fault-tolerant systems—fail-stop processors [28] that wrap probabilistic hardware with deterministic checkers—we apply the same complementarity principle: LLMs generate candidate operations (probabilistic), cryptographic verification ensures integrity (deterministic)."
+  },
+  {
+    "query_id": "Q017",
+    "question": "According to the review of deep learning for satellite image time series (SITS), which satellite is the most common SITS data source in the reviewed datasets?",
+    "answer": "Sentinel-2 (sole source for 14 datasets, contributor to 13 more).",
+    "source": "2404.03936v2.pdf",
+    "page": 5,
+    "passage": "The most common SITS source is Sentinel-2, which provides all the data for fourteen datasets and contributes to another thirteen datasets."
+  },
+  {
+    "query_id": "Q018",
+    "question": "In the SITS deep learning review, how did TempCNN and TCN compare for crop type classification on Sentinel-2 data for Slovenia?",
+    "answer": "They performed comparably; TCN has fewer parameters, so it is better when data or compute is limited.",
+    "source": "2404.03936v2.pdf",
+    "page": 13,
+    "passage": "In a comparison between TempCNN and TCN, [234] found they performed comparably for crop type classification when evaluated on Sentinel-2 data for Slovenia, but suggested that as TCN has fewer parameters, it is beneficial when training data or computing resources are limited."
+  },
+  {
+    "query_id": "Q019",
+    "question": "How was the Lung-PET-CT-Dx dataset split into training and testing sets for comparing YOLOv5 to YOLOv11 on lung cancer detection?",
+    "answer": "16,304 training images and 4,075 testing images.",
+    "source": "fmed-12-1567119.pdf",
+    "page": 4,
+    "passage": "To ensure data feasibility, the dataset was split into 16,304 images for the training set and 4,075 images for the testing set."
+  },
+  {
+    "query_id": "Q020",
+    "question": "What lung window settings were applied to the Lung-PET-CT-Dx DICOM images before training the YOLO models?",
+    "answer": "Window center −400 and window width 1,600.",
+    "source": "fmed-12-1567119.pdf",
+    "page": 4,
+    "passage": "During the conversion process, the images were adjusted to a lung window with a window center of −400 and a window width of 1,600, according to the common practice of clinicians in lung image analysis, followed by numerical conversion according to Equations (4–7)."
+  },
+  {
+    "query_id": "Q021",
+    "question": "In the Sentinel-2 land cover classification of a mountainous landscape in Google Earth Engine, which classifier performed best, and with what overall accuracy and kappa?",
+    "answer": "Random Forest under scenario S1 (10 bands): OA 0.79, kappa 0.76.",
+    "source": "Assessment_of_Machine_Learning_Algorithms_for_Land_Cover_Classification_in_a_Complex_Mountainous_Landscape.pdf",
+    "page": 1,
+    "passage": "The results indicate that the RF algorithm outperformed all other classifiers under scenario S1 (using 10 bands), achieving an overall accuracy (OA) of 0.79 and a kappa coefficient of 0.76."
+  },
+  {
+    "query_id": "Q022",
+    "question": "Which machine learning classifiers were compared for land cover classification of Gilgit-Baltistan using Sentinel-2 in Google Earth Engine?",
+    "answer": "CART, maximum entropy, minimum distance, SVM and random forest.",
+    "source": "Assessment_of_Machine_Learning_Algorithms_for_Land_Cover_Classification_in_a_Complex_Mountainous_Landscape.pdf",
+    "page": 6,
+    "passage": "The ML classifiers included in the current study were classification and regression tree (CART), maximum entropy, minimum distance, support vector machine (SVM), and random forest (RF)."
+  },
+  {
+    "query_id": "Q023",
+    "question": "Which pre-trained CNNs were fine-tuned on the UC-Merced LandUse dataset for land cover classification, and how was fine-tuning done?",
+    "answer": "Inception-V3, DenseNet121 and ResNet-50, by freezing the top layers and adding new layers sized to the number of classes.",
+    "source": "Land-Cover_Classification_Using_Deep_Learning_with_High-Resolution_Remote-Sensing_Imagery.pdf",
+    "page": 9,
+    "passage": "Using the UCMerced_LandUse dataset, we fine-tune the inception-V3, DenseNet121, and ResNet-50 models by freezing all top layers and adding new layers according to the number of classes in the dataset classes."
+  },
+  {
+    "query_id": "Q024",
+    "question": "What accuracy, recall, precision and F1-score did the transfer-learning CNN approach reach on the UC-Merced LandUse dataset?",
+    "answer": "92% accuracy, 93% recall, 92% precision, 92% F1-score.",
+    "source": "Land-Cover_Classification_Using_Deep_Learning_with_High-Resolution_Remote-Sensing_Imagery.pdf",
+    "page": 1,
+    "passage": "Through experiments conducted on the UC-Merced_LandUse dataset, we demonstrate the effectiveness of our approach, achieving remarkable results, including 92% accuracy, 93% recall, 92% precision, and a 92% F1-score."
+  }
+]
